@@ -1,0 +1,35 @@
+div.get-started {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1;
+}
+
+a.start-btn {
+  background-color: black;
+  color: white;
+  padding: 15px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+p.intro-text {
+  margin: 5vh;
+}
+
+div.get-started p.intro-text {
+  display: block;
+  font-size: 20px;
+  max-width: 800px;
+  margin: 2em auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
