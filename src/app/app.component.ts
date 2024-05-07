@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RouterLink, RouterModule, RouterOutlet} from '@angular/router';
 import {NavbarComponent} from "./navbar/navbar.component";
 import {routes} from "./app.routes";
+import {HttpClientModule} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,7 @@ import {routes} from "./app.routes";
     NavbarComponent,
     RouterModule
   ],
+  providers: [],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

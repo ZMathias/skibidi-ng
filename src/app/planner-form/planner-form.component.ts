@@ -1,44 +1,26 @@
 import { Component } from '@angular/core';
 import {NgClass} from "@angular/common";
-
-// Default values for the search criteria
-const DATE_DEFAULT: Date = new Date(0);
-const NUMBER_DEFAULT: number = -1;
-const STRING_DEFAULT: string = '';
-
+import {ResortFinderService} from "../resort-finder-service";
+import {RouterLink, Router} from "@angular/router";
 
 @Component({
   selector: 'app-planner-form',
   standalone: true,
   imports: [
-    NgClass
+    NgClass,
+    RouterLink
   ],
   templateUrl: './planner-form.component.html',
   styleUrl: './planner-form.component.css'
 })
 export class PlannerFormComponent {
-  private searchCriteria: {
-    country: string | null,
-    numberOfPeople: number,
-    startDate: Date,
-    endDate: Date,
-    ratingTarget: number | null,
-    budgetTarget: number | null,
-    blackPisteLength: number | null,
-    redPisteLength: number | null,
-    bluePisteLength: number | null
-  } =
-    {
-      country: null,
-      numberOfPeople: NUMBER_DEFAULT,
-      startDate: DATE_DEFAULT,
-      endDate: DATE_DEFAULT,
-      ratingTarget: null,
-      budgetTarget: null,
-      blackPisteLength: null,
-      redPisteLength: null,
-      bluePisteLength: null
-    };
+
+  // Inject ResortFinderService
+  constructor(
+    private resortService: ResortFinderService,
+    private router: Router
+  ) {
+  }
 
   numberOfPeopleValidityClass: string = 'valid';
   numberOfPeopleValidity: boolean = false;
@@ -93,24 +75,24 @@ export class PlannerFormComponent {
                redPisteElement: HTMLInputElement,
                bluePisteElement: HTMLInputElement)
   {
-    this.searchCriteria.country = countryElement.value !== 'def' ? countryElement.value : null;
-    this.searchCriteria.numberOfPeople = numberOfPeopleElement.valueAsNumber;
-    this.searchCriteria.startDate = new Date(startDateElement.value);
-    this.searchCriteria.endDate = new Date(endDateElement.value);
-    this.searchCriteria.ratingTarget = ratingElement.value !== null ? ratingElement.valueAsNumber : null;
-    this.searchCriteria.budgetTarget = budgetElement.value !== null ? budgetElement.valueAsNumber : null;
-    this.searchCriteria.blackPisteLength = blackPisteElement.valueAsNumber !== null ? blackPisteElement.valueAsNumber : null;
-    this.searchCriteria.redPisteLength = redPisteElement.valueAsNumber !== null ? redPisteElement.valueAsNumber : null
-    this.searchCriteria.bluePisteLength = bluePisteElement.valueAsNumber !== null ? bluePisteElement.valueAsNumber : null;
-    ratingElement.className
+    this.resortService.searchCriteria.country = countryElement.value !== 'def' ? countryElement.value : null;
+    this.resortService.searchCriteria.numberOfPeople = numberOfPeopleElement.valueAsNumber;
+    this.resortService.searchCriteria.startDate = new Date(startDateElement.value);
+    this.resortService.searchCriteria.endDate = new Date(endDateElement.value);
+    this.resortService.searchCriteria.ratingTarget = ratingElement.value !== null ? ratingElement.valueAsNumber : null;
+    this.resortService.searchCriteria.budgetTarget = budgetElement.value !== null ? budgetElement.valueAsNumber : null;
+    this.resortService.searchCriteria.blackPisteLength = blackPisteElement.valueAsNumber !== null ? blackPisteElement.valueAsNumber : null;
+    this.resortService.searchCriteria.redPisteLength = redPisteElement.valueAsNumber !== null ? redPisteElement.valueAsNumber : null
+    this.resortService.searchCriteria.bluePisteLength = bluePisteElement.valueAsNumber !== null ? bluePisteElement.valueAsNumber : null;
 
 
     console.log('Submitted following criteria:')
-    for (const key in this.searchCriteria) {
-      if (Reflect.get(this.searchCriteria, key) !== NUMBER_DEFAULT && Reflect.get(this.searchCriteria, key) !== DATE_DEFAULT && Reflect.get(this.searchCriteria, key) !== STRING_DEFAULT) {
-        console.log(key + ': ' + Reflect.get(this.searchCriteria, key))
+    for (const key in this.resortService.searchCriteria) {
+      if (Reflect.get(this.resortService.searchCriteria, key) !== this.resortService.NUMBER_DEFAULT && Reflect.get(this.resortService.searchCriteria, key) !== this.resortService.DATE_DEFAULT && Reflect.get(this.resortService.searchCriteria, key) !== this.resortService.STRING_DEFAULT) {
+        console.log(key + ': ' + Reflect.get(this.resortService.searchCriteria, key))
       }
     }
-  }
 
+    this.router.navigate(['/results']).then(r => console.log('Navigated to results'));
+  }
 }
