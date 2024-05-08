@@ -27,6 +27,10 @@ export class PlannerFormComponent {
   dateValidityClass: string = 'valid';
   dateValidity: boolean = false;
 
+  requestLoadJsonFile() {
+    this.resortService.loadJsonFile();
+  }
+
   checkNumberOfPeopleValidity(numberOfPeople: HTMLInputElement): void {
     if (isNaN(numberOfPeople.valueAsNumber)) {
       this.numberOfPeopleValidityClass = 'invalid';
@@ -71,9 +75,8 @@ export class PlannerFormComponent {
                endDateElement: HTMLInputElement,
                ratingElement: HTMLInputElement,
                budgetElement: HTMLInputElement,
-               blackPisteElement: HTMLInputElement,
-               redPisteElement: HTMLInputElement,
-               bluePisteElement: HTMLInputElement)
+               hardnessElement: HTMLSelectElement
+  )
   {
     this.resortService.searchCriteria.country = countryElement.value !== 'def' ? countryElement.value : null;
     this.resortService.searchCriteria.numberOfPeople = numberOfPeopleElement.valueAsNumber;
@@ -81,9 +84,8 @@ export class PlannerFormComponent {
     this.resortService.searchCriteria.endDate = new Date(endDateElement.value);
     this.resortService.searchCriteria.ratingTarget = ratingElement.value !== null ? ratingElement.valueAsNumber : null;
     this.resortService.searchCriteria.budgetTarget = budgetElement.value !== null ? budgetElement.valueAsNumber : null;
-    this.resortService.searchCriteria.blackPisteLength = blackPisteElement.valueAsNumber !== null ? blackPisteElement.valueAsNumber : null;
-    this.resortService.searchCriteria.redPisteLength = redPisteElement.valueAsNumber !== null ? redPisteElement.valueAsNumber : null
-    this.resortService.searchCriteria.bluePisteLength = bluePisteElement.valueAsNumber !== null ? bluePisteElement.valueAsNumber : null;
+    this.resortService.searchCriteria.hardnessPreference = hardnessElement.value !== 'def' ? hardnessElement.value : null;
+
 
 
     console.log('Submitted following criteria:')

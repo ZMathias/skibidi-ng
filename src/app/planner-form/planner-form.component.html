@@ -52,15 +52,21 @@
 
     <!--Budget target-->
     <input type="number" id="budget-target" class="input-field" placeholder="Budget target (in EUR)" min="0" max="10000" #budgetTarget>
+    <select id="difficulty-selector" class="input-field country-field" #difficultyTarget>
+      <option value="def">Difficulty</option>
+      <option value="easy">Beginner</option>
+      <option value="medium">Intermediate</option>
+      <option value="hard">Advanced</option>
+    </select>
   </div>
 
   <!--Piste preferences-->
-  <div class="form-section piste-section">
+  <!--<div class="form-section piste-section">
     <span style="margin: 0 0 10px 0; width: 285px">All of the following are optional targets and are treated as total lengths:</span>
     <input type="number" class="input-field" id="blue-length-target" placeholder="Blue piste target length" min="0" max="126" #blueLengthTarget>
     <input type="number" class="input-field" id="red-length-target" placeholder="Red piste target length" min="0" max="220" #redLengthTarget>
     <input type="number" class="input-field" id="black-length-target" placeholder="Black piste target length" min="0" max="312" #blackLengthTarget>
-  </div>
+  </div>-->
 
-  <button id="planner-submit-button" class="button" [ngClass]="numberOfPeopleValidity && dateValidity ? '' : 'invalid-btn'" (click)="checkNumberOfPeopleValidity(numberOfPeople);checkDateValidity(arrivalDate, departureDate); numberOfPeopleValidity && dateValidity ? onSubmitForm(countrySelector, numberOfPeople, arrivalDate, departureDate, ratingTarget, budgetTarget, blackLengthTarget, redLengthTarget, blueLengthTarget) : null">Submit</button>
+  <button id="planner-submit-button" class="button" [ngClass]="numberOfPeopleValidity && dateValidity ? '' : 'invalid-btn'" (click)="requestLoadJsonFile();checkNumberOfPeopleValidity(numberOfPeople);checkDateValidity(arrivalDate, departureDate); numberOfPeopleValidity && dateValidity ? onSubmitForm(countrySelector, numberOfPeople, arrivalDate, departureDate, ratingTarget, budgetTarget, difficultyTarget) : null">Submit</button>
 </div>
