@@ -1,5 +1,11 @@
-<div style="height: calc(100vh - 110px); display: flex; align-items: center;">
-  <app-results-card-overview></app-results-card-overview>
-  <app-results-card-overview></app-results-card-overview>
-</div>
+<div id="form-results-flex-container">
+  <div id="form-container">
+    <app-planner-form (showResultsEvt)="showResults = $event.valueOf()"></app-planner-form>
+  </div>
 
+  <div id="results-container" *ngIf="showResults">
+    <app-results-card-overview *ngFor="let candidate of this.resortFinderService.candidates"
+                               [resort]="candidate"></app-results-card-overview>
+  </div>
+
+</div>

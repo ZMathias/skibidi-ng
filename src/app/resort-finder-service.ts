@@ -45,6 +45,10 @@ export class ResortFinderService {
     private toastr: ToastrService
   ) { }
 
+  hasData(): boolean {
+    return this.candidates !== undefined && this.candidates.length > 0;
+  }
+
   loadJsonFile() {
     this.http.get('/assets/data/resort-data.json')
       .pipe(
@@ -58,6 +62,7 @@ export class ResortFinderService {
           this.resortData = res;
           /*this.toastr.success('Data loaded successfully');*/
           console.log('--- result :: ', this.resortData);
+          this.searchResorts();
         } else {
           /*this.toastr.error('Error loading the data file');*/
         }
@@ -83,46 +88,44 @@ export class ResortFinderService {
         const season_end = new Date(resort.season_end);
         if (this.searchCriteria.startDate < season_start) {
           return;
+        } else {
+          score += 10;
         }
       }
 
       if (this.searchCriteria.ratingTarget !== null && this.searchCriteria.ratingWeight !== null && resort.rating !== undefined) {
-        if (resort.rating >= this.searchCriteria.ratingTarget) {
-          score += (resort.rating - this.searchCriteria.ratingTarget) * this.searchCriteria.ratingWeight;
-        }
+        const ratingScore = (1 - Math.abs(resort.rating - this.searchCriteria.ratingTarget) / 5.0) * 10;
+        score += ratingScore > 0 ? ratingScore : 0;
       }
 
       if (this.searchCriteria.budgetTarget !== null && this.searchCriteria.budgetWeight !== null && resort.adult !== undefined) {
         // find the absolute difference and give the best score to the closest ones
-        score -= Math.abs((this.searchCriteria.budgetTarget - resort.adult * this.searchCriteria.numberOfPeople) * this.searchCriteria.budgetWeight);
+        const budget = resort.adult * this.searchCriteria.numberOfPeople;
+        const budgetScore = (1 - Math.abs(this.searchCriteria.budgetTarget - budget) / budget) * 10;
+        score += budgetScore > 0 ? budgetScore : 0;
       }
 
-      if (this.searchCriteria.hardnessPreference !== null && resort.difficultyRating !== undefined) {
-        switch (this.searchCriteria.hardnessPreference) {
-          case 'easy':
-            if (resort.difficultyRating >= 0.0 && resort.difficultyRating < 0.7)
-              score += 50;
-            else
-              score -= 20;
-            break;
-          case 'medium':
-            if (resort.difficultyRating >= 0.7 && resort.difficultyRating <= 1.0)
-              score += 50;
-            else
-              score -= 50;
-            break;
-          case 'hard':
-            if (resort.difficultyRating >= 1.0)
-              score += 60;
-            else
-              score -= 80;
-            break;
+      const hardness = resort.difficultyRating;
+      const hardnessPreference = this.searchCriteria.hardnessPreference;
+      if (hardnessPreference !== null && hardness !== undefined) {
+        let hardnessScore = 0;
+        if (hardnessPreference === 'easy') {
+          hardnessScore = (1 - Math.abs(0.5 - hardness) / 3.0) * 10;
         }
+        else if (hardnessPreference === 'medium') {
+          hardnessScore = (1 - Math.abs(0.75 - hardness) / 3.0) * 10;
+        }
+        else if (hardness >= 1.0) {
+          hardnessScore += 10;
+        }
+        score += hardnessScore > 0 ? hardnessScore : 0;
       }
 
       this.candidates.push({resort: resort, score: score});
     });
 
     this.candidates.sort((a: { score: number; }, b: { score: number; }) => b.score - a.score);
+    // we only keep the top 5
+    this.candidates = this.candidates.slice(0, 5);
   }
 }

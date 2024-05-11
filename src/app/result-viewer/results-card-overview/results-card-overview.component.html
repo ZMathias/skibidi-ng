@@ -1,46 +1,40 @@
 <div id="price-card-container">
-  <div id="name-price-container" class="roboto-bold">
-    <span id="name">Kaaltenbach ski-resort Baden-Wuttemberg</span>
+  <div id="name-price-container" class="roboto-medium">
+    <span id="name">{{ resort.resort.name }}</span>
     <br>
-    <span id="price">€30</span>
+    <span id="price">{{ resort.resort.adult }}</span>
   </div>
 
   <div id="layout-container">
     <div id="layout-left">
-      <div id="description-container" class="roboto-bold">
+      <div id="description-container" class="roboto-light">
         <ul id="description">
           <li>
-            <span class="difficulty-text">Intermediate difficulty</span>
+            <span class="difficulty-text">{{ this.difficulty }}</span>
           </li>
           <span class="piste-text">Piste info</span>
           <ul id="piste-list">
             <li>
-              <span class="piste-length">Total length: 5km</span>
+              <span class="piste-length">Total length: {{resort.resort.total_slope_length}}km</span>
             </li>
             <li>
-              <span class="black-length">Black length: 46 km</span>
+              <span class="black-length">Black length: {{resort.resort.black_slope_length}}km</span>
             </li>
             <li>
-              <span class="red-length">Red length: 23 km</span>
+              <span class="red-length">Red length: {{resort.resort.red_slope_length}}km</span>
             </li>
             <li>
-              <span class="blue-length">Blue length: 12 km</span>
+              <span class="blue-length">Blue length: {{resort.resort.blue_slope_length}}km</span>
             </li>
           </ul>
           <li>
-            <span class="accommodation-available-text">Suitable accomodation available</span>
+            <span class="accommodation-available-text">Suitable accommodation available</span>
           </li>
           <li>
             <span class="neighbouring-towns-text">Neighbouring towns</span>
             <ul>
-              <li>
-                <span class="town-name">Furtwangen</span>
-              </li>
-              <li>
-                <span class="town-name">Triberg</span>
-              </li>
-              <li>
-                <span class="town-name">Schonach</span>
+              <li *ngFor="let town of resort.resort.neighbouring_towns">
+                <span class="town-name">{{ town }}</span>
               </li>
             </ul>
           </li>
@@ -49,14 +43,14 @@
     </div>
     <div id="layout-right">
       <div id="rating-container">
-        <span class="fa fa-star checked"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
+        <span class="fa fa-star" [ngClass]=" {'checked': this.resort.resort.rating >= 1}"></span>
+        <span class="fa fa-star" [ngClass]=" {'checked': this.resort.resort.rating >= 2}"></span>
+        <span class="fa fa-star" [ngClass]=" {'checked': this.resort.resort.rating >= 3}"></span>
+        <span class="fa fa-star" [ngClass]=" {'checked': this.resort.resort.rating >= 4}"></span>
+        <span class="fa fa-star" [ngClass]=" {'checked': this.resort.resort.rating >= 5}"></span>
       </div>
       <img id="resort-img"
-           src="https://images.unsplash.com/photo-1519659675643-e5885721661f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+           [src]="this.resort.resort.image_url"
            alt="ski-resort-image">
     </div>
   </div>

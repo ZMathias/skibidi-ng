@@ -68,5 +68,5 @@
     <input type="number" class="input-field" id="black-length-target" placeholder="Black piste target length" min="0" max="312" #blackLengthTarget>
   </div>-->
 
-  <button id="planner-submit-button" class="button" [ngClass]="numberOfPeopleValidity && dateValidity ? '' : 'invalid-btn'" (click)="requestLoadJsonFile();checkNumberOfPeopleValidity(numberOfPeople);checkDateValidity(arrivalDate, departureDate); numberOfPeopleValidity && dateValidity ? onSubmitForm(countrySelector, numberOfPeople, arrivalDate, departureDate, ratingTarget, budgetTarget, difficultyTarget) : null">Submit</button>
+  <button id="planner-submit-button" class="button" [ngClass]="numberOfPeopleValidity && dateValidity ? '' : 'invalid-btn'" (click)="onSubmitClick(countrySelector, numberOfPeople, arrivalDate, departureDate, ratingTarget, budgetTarget, difficultyTarget)">Submit</button>
 </div>

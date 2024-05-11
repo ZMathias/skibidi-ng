@@ -1,1 +1,15 @@
+#results-container {
+  height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  overflow-y: auto;
+  padding: 10px 20px 0 20px;
+  margin: 0;
+}
 
+#form-results-flex-container {
+  display: flex;
+  justify-content: center;
+}
