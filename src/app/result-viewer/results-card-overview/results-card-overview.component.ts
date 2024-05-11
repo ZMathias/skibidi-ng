@@ -29,6 +29,11 @@ export class ResultsCardOverviewComponent implements OnInit {
 
   difficulty: string = '';
 
+  onNameClick() {
+    // redirect to external page
+    window.open(this.resort.resort.site_url, '_blank');
+  }
+
   ngOnInit() {
     console.log(this.resort);
     if (this.resort.resort.image_url === undefined) {

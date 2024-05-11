@@ -1,6 +1,6 @@
 <div id="price-card-container">
   <div id="name-price-container" class="roboto-medium">
-    <span id="name">{{ resort.resort.name }}</span>
+    <span id="name" (click)="onNameClick()" style="cursor: pointer">{{ resort.resort.name }}</span>
     <br>
     <span id="price">{{ resort.resort.adult }}</span>
   </div>
