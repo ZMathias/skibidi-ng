@@ -50,7 +50,7 @@ export class ResortFinderService {
   }
 
   loadJsonFile() {
-    this.http.get('/assets/data/resort-data.json')
+    this.http.get('/assets/data/resort.json')
       .pipe(
         catchError(error => {
           /*this.toastr.error('Error loading the data file');*/
