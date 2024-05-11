@@ -12,4 +12,11 @@
 #form-results-flex-container {
   display: flex;
   justify-content: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  @media (min-width: 769px) {
+    flex-direction: row;
+  }
 }
