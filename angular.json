@@ -90,6 +90,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "skibidi-ng:build:production",
+              "serveTarget": "skibidi-ng:serve:production"
+            },
+            "development": {
+              "buildTarget": "skibidi-ng:build:development",
+              "serveTarget": "skibidi-ng:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

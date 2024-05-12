@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "skibidi-ng": {
+      "hosting": {
+        "skibidi-ng": [
+          "skibidi-ng"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "skibidi-ng"
+  }
+}
